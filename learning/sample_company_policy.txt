@@ -1,0 +1,26 @@
+================================================================================
+                     ACME CORP - ENTERPRISE POLICIES (2026)
+================================================================================
+
+SECTION 1: REMOTE WORK AND EQUIPMENT POLICY
+Employees working remotely are eligible for a one-time home office setup stipend 
+of $1,000. All hardware, including laptops and monitors, remains the property of 
+Acme Corp and must be returned within 5 business days upon termination of employment.
+VPN access is mandatory when accessing internal company code repositories and databases.
+
+SECTION 2: VACATION AND PAID TIME OFF (PTO)
+Full-time employees receive 20 days of paid vacation per calendar year. 
+Unused PTO can be carried over up to a maximum of 5 days into the following year.
+Leave requests exceeding 3 consecutive business days must be submitted at least 
+2 weeks in advance through the HR portal.
+
+SECTION 3: AI TOOL USAGE AND DATA PRIVACY
+Employees are encouraged to utilize AI tools for productivity. However, pasting 
+proprietary source code, customer personal data (PII), or unreleased financial metrics 
+into public AI models is strictly prohibited. Approved internal AI tools must be used 
+for any sensitive company tasks.
+
+SECTION 4: HEALTH INSURANCE AND WELLNESS
+Acme Corp provides 100% employer-covered health, dental, and vision insurance for 
+all full-time staff. Employees also receive a $100 monthly wellness reimbursement 
+usable for gym memberships, fitness trackers, or mental health app subscriptions.

@@ -1,0 +1,20 @@
+# Python cache & virtualenvs
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Vector DB storage (large binaries generated at runtime)
+chroma_db_store/
+
+# Environment secrets
+.env
+.env.local
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
