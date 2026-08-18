@@ -41,6 +41,13 @@
 
 ```
 documind-rag/
+├── backend/
+│   ├── main.py                           # FastAPI server
+│   ├── rag_service.py                    # RAG pipeline service
+│   └── requirements.txt
+├── frontend/
+│   ├── src/                              # React chat UI
+│   └── package.json
 ├── learning/
 │   ├── step1_vectors_and_embeddings.py   # Embeddings & Cosine Similarity demo
 │   ├── step2_chunking_and_vectordb.py    # Document chunking & ChromaDB indexing
@@ -56,13 +63,34 @@ documind-rag/
 
 ### 1. Prerequisites
 - Python 3.10+
+- Node.js 18+
 - Installed packages: `numpy`, `chromadb`
 
 ```bash
 pip install numpy chromadb
 ```
 
-### 2. Run Learning Masterclass Lessons
+### 2. Run the React Frontend + API
+
+**Terminal 1 — Backend API**
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
+**Terminal 2 — React UI**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open **http://localhost:5173** in your browser.
+
+Optional: set `GEMINI_API_KEY` for real LLM answers instead of the grounded fallback.
+
+### 3. Run Learning Masterclass Lessons
 
 ```bash
 # Step 1: Learn Embeddings & Vector Similarity

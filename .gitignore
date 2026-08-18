@@ -13,6 +13,10 @@ chroma_db_store/
 .env
 .env.local
 
+# Node / Frontend
+node_modules/
+frontend/dist/
+
 # IDE & OS
 .vscode/
 .idea/
