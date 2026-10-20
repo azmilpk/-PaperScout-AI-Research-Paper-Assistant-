@@ -1,38 +1,45 @@
-# 🧠 DocuMind AI — Enterprise Multimodal RAG Engine
+# 📄 PaperScout — AI Research Paper Assistant
 
-> Production-grade **Retrieval-Augmented Generation (RAG)** platform featuring Hybrid Search (Dense Vectors + BM25), ChromaDB Vector Storage, Grounded Citation Tracing, and Interactive AI Concept Masterclass.
-
----
-
-## 🌟 Key Highlights & Resume Value
-
-- **Advanced RAG Pipeline**: Implements **Hybrid Search** (Dense Vector Cosine Similarity + Sparse BM25 Keyword Search) with **Reciprocal Rank Fusion (RRF)** and Cross-Encoder Reranking for high retrieval accuracy.
-- **Anti-Hallucination & Citation Tracing**: Enforces strict grounded context prompting linking claims directly to exact document sections, pages, and passages with visual verification.
-- **Persistent Vector Store**: Built with **ChromaDB** storing multi-dimensional embeddings with document metadata.
-- **Full-Stack Modular Architecture**: Python FastAPI backend with streaming capabilities + React workspace.
-- **Interactive AI Masterclass**: Includes step-by-step runnable learning scripts demystifying Vectors, Embeddings, Chunking, Vector DBs, and Prompt Engineering.
+> Production-grade **Research Paper Assistant** powered by **LangChain (LCEL)**, **ChromaDB Vector Store**, **Real LLMs (Hugging Face / Gemini / OpenAI)**, and **Multi-PDF Document Management** with exact in-line citations and query routing.
 
 ---
 
-## 🏗️ Architecture
+## 🌟 Key Architecture & Highlights
+
+- **Multi-Paper Library Management**: Ingest multiple conference / arXiv PDFs simultaneously with page-by-page metadata, section detection, and individual paper deletion.
+- **Query Router & Anti-Hallucination Guardrails**: Semantic classification routing greetings and chitchat into natural conversations, while forcing technical questions through strict grounded RAG with the "I don't know" rule.
+- **Accurate In-Line Citations**: Maps generated claims directly to numbered source tags: `[1] Attention Is All You Need (Page 3, Section 3.2)` with interactive passage inspection.
+- **Multi-Model Support**: Native support for **free Hugging Face models** (`mistralai/Mistral-7B-Instruct-v0.3`, `Llama-3.2`), **Google Gemini**, and **OpenAI**.
+- **ChromaDB Vector Store with Filtered Search**: Query across all papers or lock retrieval strictly to a selected active paper.
+- **Zero-Cost Local Embeddings**: On-device vector embeddings running on ONNX MiniLM (no rate limits or API costs during PDF indexing).
+
+---
+
+## 🏗️ Architecture Flow
 
 ```
-[ User Question ]
-       │
-       ├──► 1. Dense Vector Search (ChromaDB Cosine Similarity)
-       ├──► 2. Sparse Keyword Search (BM25 Lexical Search)
+[ User Query: e.g. "What is Scaled Dot-Product Attention?" ]
        │
        ▼
- [ Reciprocal Rank Fusion & Reranker ]
+ [ Query Router / Intent Classifier ]
+       ├── If Greeting ("hai", "hello") ──► Friendly AI conversational reply
        │
-       ▼
- [ Top Grounded Document Context ]
-       │
-       ▼
- [ Grounded Prompt + Gemini / LLM Generator ]
-       │
-       ▼
- [ Answer with Verified Source Citations ]
+       └── If Technical Question:
+              │
+              ▼
+       [ ChromaDB Vector Search (Filtered by Paper ID) ]
+              │
+              ▼
+       [ Top-k Retrieved Page Passages + Similarity Scores ]
+              │
+              ▼
+       [ Strict Grounded Prompt: ChatPromptTemplate ]
+              │
+              ▼
+       [ Real LLM: Hugging Face / Gemini / OpenAI (Temp = 0.1) ]
+              │
+              ▼
+       [ Answer with Numbered Citations: [1] Paper Title (Page X, Section Y) ]
 ```
 
 ---
@@ -42,77 +49,71 @@
 ```
 documind-rag/
 ├── backend/
-│   ├── main.py                           # FastAPI server
-│   ├── rag_service.py                    # RAG pipeline service
-│   └── requirements.txt
+│   ├── main.py                     # FastAPI server: /papers, /upload, /chat, /settings
+│   ├── rag_service.py              # PaperScout RAG Pipeline, ChromaDB store, Query Router
+│   ├── requirements.txt            # Python dependencies (langchain, chromadb, etc.)
+│   ├── data/
+│   │   ├── papers_registry.json    # Tracked research papers & page stats
+│   │   └── sample_papers/          # Bundled foundational papers (Attention Is All You Need)
+│   └── .env.example                # LLM key template (Hugging Face, Gemini, OpenAI)
 ├── frontend/
-│   ├── src/                              # React chat UI
+│   ├── src/
+│   │   ├── api/client.js           # API client with multi-paper & chat endpoints
+│   │   ├── components/
+│   │   │   ├── ApiKeyModal.jsx     # LLM key configuration modal
+│   │   │   ├── ChatMessage.jsx     # Chat bubbles with model badge & in-text citation links
+│   │   │   └── CitationCard.jsx    # Passage cards with page tags & relevance scores
+│   │   ├── App.jsx                 # PaperScout dashboard (Sidebar, Paper Pill, Library, Q&A)
+│   │   └── App.css                 # Dark mode UI matching modern research tools
 │   └── package.json
-├── learning/
-│   ├── step1_vectors_and_embeddings.py   # Embeddings & Cosine Similarity demo
-│   ├── step2_chunking_and_vectordb.py    # Document chunking & ChromaDB indexing
-│   ├── step3_full_rag_pipeline.py        # End-to-end Grounded RAG Pipeline
-│   └── sample_company_policy.txt         # Sample dataset
-├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🚀 How to Run locally
+## 🚀 Getting Started
 
-### 1. Prerequisites
-- Python 3.10+
-- Node.js 18+
-- Installed packages: `numpy`, `chromadb`
+### 1. Set Up Backend
 
-```bash
-pip install numpy chromadb
+Create `backend/.env` with your preferred free LLM token:
+
+```env
+# Option 1: Hugging Face Free Open-Source Models (https://huggingface.co/settings/tokens)
+HUGGINGFACEHUB_API_TOKEN=your_hf_token_here
+HUGGINGFACE_MODEL=mistralai/Mistral-7B-Instruct-v0.3
+
+# Option 2: Google Gemini (https://aistudio.google.com/app/apikey)
+# GOOGLE_API_KEY=your_gemini_key_here
+# GEMINI_MODEL=gemini-2.5-flash
+
+# Fast on-device vector embeddings (no quota used)
+EMBEDDING_PROVIDER=local
 ```
 
-### 2. Run the React Frontend + API
+Start the backend:
 
-**Terminal 1 — Backend API**
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+```powershell
+cd d:\AI projects\documind-rag\backend
+.\.venv\Scripts\uvicorn main:app --reload --port 8000
+
 ```
 
-**Terminal 2 — React UI**
-```bash
+### 2. Start Frontend
+
+```powershell
 cd frontend
 npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** in your browser.
-
-Optional: set `GEMINI_API_KEY` for real LLM answers instead of the grounded fallback.
-
-### 3. Run Learning Masterclass Lessons
-
-```bash
-# Step 1: Learn Embeddings & Vector Similarity
-python learning/step1_vectors_and_embeddings.py
-
-# Step 2: Learn Document Chunking & ChromaDB
-python learning/step2_chunking_and_vectordb.py
-
-# Step 3: Run Full RAG Pipeline with Citations
-python learning/step3_full_rag_pipeline.py
-```
+Open **http://localhost:5173**. 
+* Click **"Load 'Attention Is All You Need'"** to start immediately with the bundled paper, or upload any research PDF from your computer!
 
 ---
 
-## 📝 Resume Bullet Points
-
-- **Engineered an Enterprise Multimodal RAG platform** using Python, ChromaDB, and Gemini API, enabling sub-second question answering over complex document repositories.
-- **Implemented a Hybrid Search & Reranking architecture** combining dense vector embeddings with sparse BM25 keyword matching, improving retrieval precision by over 35% compared to naive vector search.
-- **Built grounded citation & anti-hallucination guardrails**, mapping LLM outputs to specific document pages and text passages for source transparency.
-
----
-
-## 👤 Author
-- **GitHub**: [@azmilpk](https://github.com/azmilpk)
-- **Repository**: [DocuMind--AI-](https://github.com/azmilpk/DocuMind--AI-.git)
+## 🗺️ Project Roadmap
+- [x] **Phase 1: Core Document Management & Multi-PDF Parsing** (Active paper pill, ChromaDB multi-paper indexing, query routing)
+- [ ] **Phase 2: Deep Grounded Q&A with In-Text Formula & Architecture Diagrams**
+- [ ] **Phase 3: Automated Paper Summarizer Engine** (Key Findings, Methodology, Limitations)
+- [ ] **Phase 4: Cross-Paper Comparative Analysis** (`Compare` mode for 2+ papers)
+- [ ] **Phase 5: Notes Scratchpad & Export**

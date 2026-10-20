@@ -21,8 +21,16 @@ export function getStatus() {
   return request('/status')
 }
 
-export function indexSample() {
-  return request('/index/sample', { method: 'POST' })
+export function getPapers() {
+  return request('/papers')
+}
+
+export function deletePaper(paperId) {
+  return request(`/papers/${paperId}`, { method: 'DELETE' })
+}
+
+export function loadSamplePaper() {
+  return request('/papers/sample', { method: 'POST' })
 }
 
 export function uploadDocument(file) {
@@ -31,10 +39,22 @@ export function uploadDocument(file) {
   return request('/upload', { method: 'POST', body: formData })
 }
 
-export function sendChat(query, topK = 2) {
+export function sendChat(query, paperId = null, topK = 4) {
   return request('/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, top_k: topK }),
+    body: JSON.stringify({ query, paper_id: paperId, top_k: topK }),
+  })
+}
+
+export function getApiKeyConfig() {
+  return request('/settings/api-key')
+}
+
+export function saveApiKey(provider, apiKey, model = null) {
+  return request('/settings/api-key', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ provider, api_key: apiKey, model }),
   })
 }

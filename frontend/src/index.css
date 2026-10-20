@@ -1,16 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --bg: #0b0f14;
-  --bg-elevated: #121821;
-  --bg-panel: #161d28;
+  --bg: #070a12;
+  --bg-elevated: #0d121f;
+  --bg-panel: #121827;
   --border: rgba(255, 255, 255, 0.08);
-  --text: #e8edf5;
-  --text-muted: #8b97a8;
-  --accent: #5b8def;
-  --accent-soft: rgba(91, 141, 239, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --text: #f3f6fc;
+  --text-muted: #8e9bb3;
+
+  /* User Specified Primary & Secondary Palette */
+  --accent: #0038FF;                /* Vibrant Electric Cobalt Blue */
+  --accent-hover: #194eff;
+  --accent-soft: rgba(0, 56, 255, 0.16);
+  --accent-glow: rgba(0, 56, 255, 0.35);
+
+  --accent-warm: #FFD8B8;           /* Warm Soft Peach / Cream */
+  --accent-warm-text: #ffe5d0;
+  --accent-warm-soft: rgba(255, 216, 184, 0.14);
+  --accent-warm-border: rgba(255, 216, 184, 0.3);
+  --accent-warm-glow: rgba(255, 216, 184, 0.25);
+
   --success: #3ecf8e;
   --danger: #ff6b6b;
   --radius: 14px;
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
   font-family: 'DM Sans', system-ui, sans-serif;
   color: var(--text);
   background: var(--bg);
@@ -25,9 +41,11 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(91, 141, 239, 0.12), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(62, 207, 142, 0.08), transparent 25%),
+    radial-gradient(circle at top left, rgba(0, 56, 255, 0.18), transparent 35%),
+    radial-gradient(circle at top right, rgba(255, 216, 184, 0.08), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0, 56, 255, 0.1), transparent 30%),
     var(--bg);
+  background-attachment: fixed;
 }
 
 #root {

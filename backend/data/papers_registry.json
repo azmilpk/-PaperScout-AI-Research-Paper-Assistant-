@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ej1172284",
+    "filename": "EJ1172284.pdf",
+    "title": "The EUROCALL Review, Volume 25, No. 2, September 2017",
+    "total_pages": 11,
+    "chunk_count": 73,
+    "abstract": "The paper discusses the results of a study which explored advanced learners of English \nengagement with their mobile devices to develop learning experiences that meet their \nneeds and goals as foreign language learners. The data were collected from 20 students \nby means of a semi -structured intervi...",
+    "uploaded_at": "2026-10-20T19:28:50.019352"
+  },
+  {
+    "id": "attention_is_all_you_need",
+    "filename": "Attention Is All You Need.pdf",
+    "title": "Attention Is All You Need",
+    "total_pages": 10,
+    "chunk_count": 31,
+    "abstract": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transform...",
+    "uploaded_at": "2026-10-20T19:02:23.460387"
+  }
+]
